@@ -1,0 +1,28 @@
+VAoColumn
+=========
+
+Allow validates_acceptance_of to store value on a database column of
+the same name.
+
+An example use case here, is that you want to use the current version
+of the EULA as the :accept value, and store that column, so you can
+refer to the explicit version the user accepted at a later date.
+
+Example
+=======
+
+  ActiveRecord::Schema.define do
+    create_table :pirates, :force => true do |t|
+      t.column :catchphrase, :string
+    end
+  end
+
+  class Pirate < ActiveRecord::Base
+    validates_acceptance_of(:catchphrase, :accept => "Argh!")
+  end
+
+  "catchphrase" is a normal column method on the model, not just a
+  virtual accessor.
+
+
+Copyright (c) 2007 Jason L Perry, released under the MIT license
